@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request
-from twilio.rest import Client
 import http.client
 import urllib.request, urllib.parse, urllib.error
 import json
 import requests
 import os
-import praw
 from dotenv import load_dotenv
+from twilio.rest import Client
 
 app = Flask(__name__)
 
@@ -19,14 +18,8 @@ client = Client(
     str(TWILIO_SID),
     str(TWILIO_KEY)
 )
-
-
-reddit = praw.Reddit(client_id="my client id",
-                     client_secret="my client secret",
-                     user_agent="my user agent")
-
-
 FACE_KEY = os.getenv('FACE_KEY')
+JOKES_API = os.getenv('JOKES_API')
 
 @app.route('/')
 def index():
@@ -56,40 +49,31 @@ def results():
 
     flags = ''
     if int(age) < 18:
-        flags = '?blacklistFlags=nsfw,religious,political,racist,sexist'
-
-    if int(emotion) == 1:
-        joke_count = 1
-        count_param = ''
-    else:
-        joke_count = str((1 - int(emotion)) * 10)
-        count_param = f'&amount={joke_count}'
+        flags = '&blacklistFlags=nsfw%252Cracist%252Creligious%252Cpolitical%252Csexist'
 
 
     # Jokes API
-    conn = http.client.HTTPSConnection('sv443.net')
-    conn.request("GET", "/jokeapi/v2/joke/Any/" + str(flags) + '&type=single' + str(count_param))
+    conn = http.client.HTTPSConnection("jokeapi-v2.p.rapidapi.com")
+
+    headers = {
+        'x-rapidapi-host': "jokeapi-v2.p.rapidapi.com",
+        'x-rapidapi-key': JOKES_API
+        }
+
+    conn.request('GET', '/joke/Any?format=json' + str(flags) + '&idRange=0-150&type=single', headers=headers)
 
     res = conn.getresponse()
     data = res.read().decode("utf-8")
 
-    js = json.loads(data)
-    print(js)
-
-    """try:
+    try:
         js = json.loads(data)
     except:
-        js = None"""
+        js = None
 
-    if joke_count == 1:
-        response = js["joke"]
-    else:
-        for joke in js["jokes"][0]:
-            response = response + joke["joke"] + '\n'
+    response = js['joke']
 
     return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
 
-    # Send the text to the phone, by getting the destination phone number and the joke
     msg = client.messages.create(
         to="+" + str(request.args.get('phone')).strip(),
         from_=str(TWILIO_NUMBER),
