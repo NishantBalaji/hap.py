@@ -3,6 +3,7 @@ import http.client
 import urllib.request, urllib.parse, urllib.error
 import json
 import requests
+from time import sleep
 import os
 from dotenv import load_dotenv
 from twilio.rest import Client
@@ -55,35 +56,40 @@ def results():
     if int(age) < 18:
         flags = '&blacklistFlags=nsfw%252Cracist%252Creligious%252Cpolitical%252Csexist'
 
+    msgnum = str(emotion*10)
+    msgnum = 10 - msgnum
 
-    # Jokes API
-    conn = http.client.HTTPSConnection("jokeapi-v2.p.rapidapi.com")
+    for x in range(msgnum):
 
-    headers = {
-        'x-rapidapi-host': "jokeapi-v2.p.rapidapi.com",
-        'x-rapidapi-key': JOKES_API
-        }
+        # Jokes API
+        conn = http.client.HTTPSConnection("jokeapi-v2.p.rapidapi.com")
 
-    conn.request('GET', '/joke/Any?format=json' + str(flags) + '&idRange=0-150&type=single', headers=headers)
+        headers = {
+            'x-rapidapi-host': "jokeapi-v2.p.rapidapi.com",
+            'x-rapidapi-key': JOKES_API
+            }
 
-    res = conn.getresponse()
-    data = res.read().decode("utf-8")
+        conn.request('GET', '/joke/Any?format=json' + str(flags) + '&idRange=0-150&type=single', headers=headers)
 
-    try:
-        js = json.loads(data)
-    except:
-        js = None
+        res = conn.getresponse()
+        data = res.read().decode("utf-8")
 
-    response = js['joke']
+        try:
+            js = json.loads(data)
+        except:
+            js = None
 
-    # Sends the text message via the Twilio API, getting the phone number from the input and the joke from the Joke API
-    number = request.args.get('phone').strip()
-    msg = client.messages.create(
-        to="+1" + str(number),
-        from_=str(TWILIO_NUMBER),
-        body=str(response),
-    )
+        response = js['joke']
 
-    print(f"Created a new message: {msg.sid}")
+        # Sends the text message via the Twilio API, getting the phone number from the input and the joke from the Joke API
+        number = request.args.get('phone').strip()
+        msg = client.messages.create(
+            to="+1" + str(number),
+            from_=str(TWILIO_NUMBER),
+            body=str(response),
+        )
 
-    return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
+        print(f"Created a new message: {msg.sid}")
+        sleep(600)
+
+    rendered = flask.render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
