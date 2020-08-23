@@ -65,4 +65,4 @@ def results():
         for joke in js['jokes']:
             response = response + joke['joke'] + '\n'
 
-    return render_template('results.html', age=age, emotion=emotion, joke=response)
+    return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
