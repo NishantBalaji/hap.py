@@ -18,7 +18,11 @@ client = Client(
     str(TWILIO_SID),
     str(TWILIO_KEY)
 )
+
+# FACE API
 FACE_KEY = os.getenv('FACE_KEY')
+
+# JOKES API
 JOKES_API = os.getenv('JOKES_API')
 
 @app.route('/')
@@ -72,10 +76,13 @@ def results():
 
     response = js['joke']
 
-    return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
-
+    number = request.args.get('phone').strip()
     msg = client.messages.create(
-        to="+" + str(request.args.get('phone')).strip(),
+        to="+1" + str(number),
         from_=str(TWILIO_NUMBER),
         body=str(response),
     )
+
+    print(f"Created a new message: {msg.sid}")
+
+    return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)

@@ -18,10 +18,12 @@ client = Client(
      print(f"Deleting {msg.body}")
     msg.delete()"""
 
+num = 19162208794
+body = 'test'
 msg = client.messages.create(
-    to="+19162208794",
+    to="+" + str(num),
     from_=str(TWILIO_NUMBER),
-    body="Hello from Python",
+    body=str(body),
 )
 
 print(f"Created a new message: {msg.sid}")
