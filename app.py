@@ -1,12 +1,31 @@
 from flask import Flask, render_template, request
+from twilio.rest import Client
 import http.client
 import urllib.request, urllib.parse, urllib.error
 import json
 import requests
 import os
+import praw
 from dotenv import load_dotenv
 
 app = Flask(__name__)
+
+# Twilio Initialization
+load_dotenv()
+TWILIO_SID = os.getenv('TWILIO_SID')
+TWILIO_KEY = os.getenv('TWILIO_KEY')
+TWILIO_NUMBER = os.getenv('TWILIO_NUMBER')
+client = Client(
+    str(TWILIO_SID),
+    str(TWILIO_KEY)
+)
+
+
+reddit = praw.Reddit(client_id="my client id",
+                     client_secret="my client secret",
+                     user_agent="my user agent")
+
+
 FACE_KEY = os.getenv('FACE_KEY')
 
 @app.route('/')
@@ -54,15 +73,25 @@ def results():
     res = conn.getresponse()
     data = res.read().decode("utf-8")
 
-    try:
+    js = json.loads(data)
+    print(js)
+
+    """try:
         js = json.loads(data)
     except:
-        js = None
+        js = None"""
 
     if joke_count == 1:
-        response = js['joke']
+        response = js["joke"]
     else:
-        for joke in js['jokes'][0]:
-            response = response + joke['joke'] + '\n'
+        for joke in js["jokes"][0]:
+            response = response + joke["joke"] + '\n'
 
     return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
+
+    # Send the text to the phone, by getting the destination phone number and the joke
+    msg = client.messages.create(
+        to="+" + str(request.args.get('phone')).strip(),
+        from_=str(TWILIO_NUMBER),
+        body=str(response),
+    )
