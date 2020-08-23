@@ -1,14 +1,12 @@
 from flask import Flask, render_template, request
 import http.client
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import json
 import requests
 import os
-import dotenv
+from dotenv import load_dotenv
 
 app = Flask(__name__)
-YELP_API = os.getenv('YELP_KEY')
-YELP_CLIENT = os.getenv('YELP_CLIENT')
 FACE_KEY = os.getenv('FACE_KEY')
 
 @app.route('/')
@@ -37,8 +35,34 @@ def results():
     age = response.json()[0]['faceAttributes']['age']
     emotion = response.json()[0]['faceAttributes']['emotion']['happiness']
 
-    if
+    flags = ''
+    if int(age) < 18:
+        flags = '?blacklistFlags=nsfw,religious,political,racist,sexist'
+
+    if int(emotion) == 1:
+        joke_count = 1
+        count_param = ''
+    else:
+        joke_count = str((1 - int(emotion)) * 10)
+        count_param = f'&amount={joke_count}'
 
 
+    # Jokes API
+    conn = http.client.HTTPSConnection('sv443.net')
+    conn.request("GET", "/jokeapi/v2/joke/Any/" + str(flags) + '&type=single' + str(count_param))
 
-    return render_template('results.html', age=age, emotion=emotion)
+    res = conn.getresponse()
+    data = res.read().decode("utf-8")
+
+    try:
+        js = json.loads(data)
+    except:
+        js = None
+
+    if joke_count == 1:
+        response = js['joke']
+    else:
+        for joke in js['jokes']:
+            response = response + joke['joke'] + '\n'
+
+    return render_template('results.html', age=age, emotion=emotion, joke=response)
