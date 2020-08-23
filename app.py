@@ -3,6 +3,9 @@ import json
 import requests
 
 app = Flask(__name__)
+YELP_API = os.getenv('YELP_KEY')
+YELP_CLIENT = os.getenv('YELP_CLIENT')
+
 
 @app.route('/')
 def index():
