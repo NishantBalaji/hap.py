@@ -57,7 +57,7 @@ def results():
         flags = '&blacklistFlags=nsfw%252Cracist%252Creligious%252Cpolitical%252Csexist'
 
     msgnum = int(emotion*10)
-    msgnum = 10 - msgnum
+    msgnum = 10 - msgnum + 1
 
     for x in range(msgnum):
 
@@ -90,6 +90,5 @@ def results():
         )
 
         print(f"Created a new message: {msg.sid}")
-        sleep(600)
 
     return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
