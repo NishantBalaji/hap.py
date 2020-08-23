@@ -62,7 +62,7 @@ def results():
     if joke_count == 1:
         response = js['joke']
     else:
-        for joke in js['jokes']:
+        for joke in js['jokes'][0]:
             response = response + joke['joke'] + '\n'
 
     return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
