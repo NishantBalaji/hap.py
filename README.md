@@ -9,10 +9,10 @@ Whenever we feel happy, sad, angry, or anything in between, jokes can provide th
 
 ## How we built it
 1. Create routes to index.html and results.html with Flask
-2. Use Microsoft Face API to detect age and emotion (happiness index)
+2. Use **[Microsoft Face API]**(https://azure.microsoft.com/en-us/services/cognitive-services/face/) to detect age and emotion (happiness index)
 3. Calculates joke category based on emotion detected
-4. Parses through Joke API and retrieves joke with corresponding parameters
-5. Send joke to inputted phone number with Twilio API
+4. Parses through **[Joke API]**(https://rapidapi.com/Sv443/api/jokeapi-v2?endpoint=apiendpoint_e5399e8c-6633-4c02-8063-42e2dd17e9fe) and retrieves joke with corresponding parameters
+5. Send joke to inputted phone number with **[Twilio API]**(http://twilio.com/)
 6. Run localhost and test out the app!
 
 ## Challenges we ran into
