@@ -20,12 +20,12 @@ def results():
     headers = {'Ocp-Apim-Subscription-Key': subscription_key}
 
     params = {
-        'returnFaceId': 'true',
-        'returnFaceLandmarks': 'false',
-        'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise',
+        'returnFaceId': 'false',
+        'returnFaceRectangle': 'false',
+        'returnFaceAttributes': 'age,emotion',
     }
 
-    response = requests.post(face_api_url, params=params,
-                             headers=headers, json={"url": image_url})
-    data = json.dumps(response.json())
-    return render_template('results.html', data=data)
+    response = requests.post(face_api_url, params=params, headers=headers, json={"url": image_url})
+    age = response.json()[0]['faceAttributes']['age']
+    emotion = response.json()[0]['faceAttributes']['emotion']
+    return render_template('results.html', age=age, emotion=emotion)
