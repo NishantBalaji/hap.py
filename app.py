@@ -59,28 +59,35 @@ def results():
     msgnum = int(emotion*10)
     msgnum = 10 - msgnum + 1
 
-    for x in range(msgnum):
+    # Jokes API
+    conn = http.client.HTTPSConnection("jokeapi-v2.p.rapidapi.com")
 
-        # Jokes API
-        conn = http.client.HTTPSConnection("jokeapi-v2.p.rapidapi.com")
+    headers = {
+        'x-rapidapi-host': "jokeapi-v2.p.rapidapi.com",
+        'x-rapidapi-key': JOKES_API
+        }
 
-        headers = {
-            'x-rapidapi-host': "jokeapi-v2.p.rapidapi.com",
-            'x-rapidapi-key': JOKES_API
-            }
+    conn.request('GET', '/joke/Any?format=json' + str(flags) + '&idRange=0-150&type=single', headers=headers)
 
-        conn.request('GET', '/joke/Any?format=json' + str(flags) + '&idRange=0-150&type=single', headers=headers)
+    res = conn.getresponse()
+    data = res.read().decode("utf-8")
 
-        res = conn.getresponse()
-        data = res.read().decode("utf-8")
+    try:
+        js = json.loads(data)
+    except:
+        js = None
 
-        try:
-            js = json.loads(data)
-        except:
-            js = None
+    response = js['joke']
 
-        response = js['joke']
+    # Sends the text message via the Twilio API, getting the phone number from the input and the joke from the Joke API
+    number = request.args.get('phone').strip()
+    msg = client.messages.create(
+        to="+1" + str(number),
+        from_=str(TWILIO_NUMBER),
+        body=str(response),
+    )
 
+<<<<<<< HEAD
         # Sends the text message via the Twilio API, getting the phone number from the input and the joke from the Joke API
         number = request.args.get('phone').strip()
         msg = client.messages.create(
@@ -90,5 +97,8 @@ def results():
         )
 
         print(f"Created a new message: {msg.sid}")
+=======
+    print(f"Created a new message: {msg.sid}")
+>>>>>>> c0a10ba5d78236e3a8455ca7aa9d0a773977e902
 
     return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
