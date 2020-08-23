@@ -76,6 +76,7 @@ def results():
 
     response = js['joke']
 
+    # Sends the text message via the Twilio API, getting the phone number from the input and the joke from the Joke API
     number = request.args.get('phone').strip()
     msg = client.messages.create(
         to="+1" + str(number),
