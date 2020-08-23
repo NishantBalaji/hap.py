@@ -56,40 +56,35 @@ def results():
     if int(age) < 18:
         flags = '&blacklistFlags=nsfw%252Cracist%252Creligious%252Cpolitical%252Csexist'
 
-    msgnum = int(emotion*10)
-    msgnum = 10 - msgnum
 
-    for x in range(msgnum):
+    # Jokes API
+    conn = http.client.HTTPSConnection("jokeapi-v2.p.rapidapi.com")
 
-        # Jokes API
-        conn = http.client.HTTPSConnection("jokeapi-v2.p.rapidapi.com")
+    headers = {
+        'x-rapidapi-host': "jokeapi-v2.p.rapidapi.com",
+        'x-rapidapi-key': JOKES_API
+        }
 
-        headers = {
-            'x-rapidapi-host': "jokeapi-v2.p.rapidapi.com",
-            'x-rapidapi-key': JOKES_API
-            }
+    conn.request('GET', '/joke/Any?format=json' + str(flags) + '&idRange=0-150&type=single', headers=headers)
 
-        conn.request('GET', '/joke/Any?format=json' + str(flags) + '&idRange=0-150&type=single', headers=headers)
+    res = conn.getresponse()
+    data = res.read().decode("utf-8")
 
-        res = conn.getresponse()
-        data = res.read().decode("utf-8")
+    try:
+        js = json.loads(data)
+    except:
+        js = None
 
-        try:
-            js = json.loads(data)
-        except:
-            js = None
+    response = js['joke']
 
-        response = js['joke']
+    # Sends the text message via the Twilio API, getting the phone number from the input and the joke from the Joke API
+    number = request.args.get('phone').strip()
+    msg = client.messages.create(
+        to="+1" + str(number),
+        from_=str(TWILIO_NUMBER),
+        body=str(response),
+    )
 
-        # Sends the text message via the Twilio API, getting the phone number from the input and the joke from the Joke API
-        number = request.args.get('phone').strip()
-        msg = client.messages.create(
-            to="+1" + str(number),
-            from_=str(TWILIO_NUMBER),
-            body=str(response),
-        )
-
-        print(f"Created a new message: {msg.sid}")
-        sleep(600)
+    print(f"Created a new message: {msg.sid}")
 
     return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
