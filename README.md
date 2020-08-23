@@ -5,7 +5,7 @@ Too lazy to find some funny jokes? hap.py is here to help! hap.py is a one stop 
 Whenever we feel happy, sad, angry, or anything in between, jokes can provide the necessary moral support to make your day one thousand times better. But how could we make jokes *even better*? Ever since we have been stuck at home, finding shortcuts to every day problems has been essential. That's where facial recognition can come in! Having a mood-detecting software that **also** sends you jokes would be the perfect combination to satisfy your everyday needs.
 
 ## What it does
-
+This application utilises the [Microsoft Face API](https://azure.microsoft.com/en-us/services/cognitive-services/face/) in conjunction with the [Twilio API](http://twilio.com/) and [Joke API](https://rapidapi.com/Sv443/api/jokeapi-v2?endpoint=apiendpoint_e5399e8c-6633-4c02-8063-42e2dd17e9fe) to text you a number of jokes based on your mood. There are more jokes the less happy you are deemed to be. 
 
 ## How we built it
 1. Create routes to index.html and results.html with Flask
@@ -27,6 +27,8 @@ Whenever we feel happy, sad, angry, or anything in between, jokes can provide th
 - Learned how to create full stack apps
 
 ## What we learned
+We learned how to work with multiple APIS at the same time and how to create a full stack web app. We also learned and developed an algorith to relate happiness and jokes as well as the basics of Flask webpage development.  
+
 
 ## What's next for hap.py
 Now that we've developed the basic framework for hap.py, we have a lot in store for the future! First, we plan on cleaning up the UI/UX of the web app to provide a more aesthetic interface for users. Once that is done, we will deploy hap.py to the internet using Heroku, so that it will be accessible to everyone!
