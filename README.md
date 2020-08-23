@@ -6,8 +6,11 @@ Whenever we feel happy, sad, angry, or anything in between, memes can provide th
 
 ## What it does
 
-
 ## How we built it
+- Created routes to index.html and results.html with Flask
+- Used Microsoft Face API to detect age and emotion (happiness index)
+- Calculates the amount and category of memes based on emotion
+- 
 
 ## Challenges we ran into
 
