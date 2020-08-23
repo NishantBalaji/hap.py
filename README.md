@@ -16,7 +16,7 @@ Whenever we feel happy, sad, angry, or anything in between, jokes can provide th
 6. Run localhost and test out the app!
 
 ## Challenges we ran into
-- Used an outdated version of Jokes API at first
+- Used an outdated version of [Joke API](https://rapidapi.com/Sv443/api/jokeapi-v2?endpoint=apiendpoint_e5399e8c-6633-4c02-8063-42e2dd17e9fe) at first
 - Version control issues with Git
 - Converting web data to JSON objects
 - Developing algorithm to relate happiness and joke category
