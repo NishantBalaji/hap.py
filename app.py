@@ -56,7 +56,7 @@ def results():
     if int(age) < 18:
         flags = '&blacklistFlags=nsfw%252Cracist%252Creligious%252Cpolitical%252Csexist'
 
-    msgnum = str(emotion*10)
+    msgnum = int(emotion*10)
     msgnum = 10 - msgnum
 
     for x in range(msgnum):
@@ -92,4 +92,4 @@ def results():
         print(f"Created a new message: {msg.sid}")
         sleep(600)
 
-    rendered = flask.render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
+    return render_template('results.html', age=age, emotion=emotion, joke=response, image=image_url)
