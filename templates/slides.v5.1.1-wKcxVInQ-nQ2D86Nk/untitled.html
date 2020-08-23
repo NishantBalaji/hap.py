@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <base href="./">
-    <title>hap.py</title>
+    <title>Untitled</title>
     <meta property="og:title" content="Untitled" />
     <meta name="twitter:title" content="Untitled" />
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <!-- Compressed Styles -->
-    <link href="{{ url_for('static', filename='css/slides.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="css/slides.min.css?511351" rel="stylesheet" type="text/css">
 
 
     <!-- Fonts and Material Icons -->
@@ -97,29 +97,31 @@
 
         <div class="fix-7-12">
           <div class="fix-3-12">
-            <img src={{image}} alt="image"></img>
+            <svg height="77" class="wide ae-1 fromCenter"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use></svg>
           </div>
-          <p class="larger light margin-top-2 ae-2"><span class="opacity-8">Check your phone for your jokes!</span></p>
+          <p class="larger light margin-top-2 ae-2"><span class="opacity-8">Need a laugh? Just upload a picture of yourself and receive some jokes that match your mood *perfectly*</span></p>
           <div class="margin-top-3">
-            <p class="large margin-top-3 cropBottom ae-3"><span class="opacity-8">age: {{age}}</span></p>
-            <p class="large margin-top-3 cropBottom ae-3"><span class="opacity-8">emotional index: {{emotion}}</span></p>
-            <a href = {{ url_for('index') }}>
-              <p class="large margin-top-3 cropBottom ae-3"><span class="opacity-8">click to return home!</span></p>
-            </a>
+            <form class="slides-form" action="#">
+              <input type="name" class="rounded input-8 ae-4 fromCenter" name="url" placeholder="Image URL"/>
+              <input type="name" class="rounded input-8 ae-4 fromCenter" name="phone" placeholder="Phone Number"/>
+              <br><br>
+              <button type="submit" class="button blue rounded ae-7 fromCenter" name="button">Get Your Joke</button>
+            </form>
+            <p class="large margin-top-3 cropBottom ae-3"><span class="opacity-8">Enter your information and check your phone</span></p>
           </div>
         </div>
 
       </div>
     </div>
   </div>
-  <div class="background" style="background-image:url(static/assets/img/background/peddie.png)"></div>
+  <div class="background" style="background-image:url(assets/img/background/img-08.jpg)"></div>
 </section>
 
 <!-- jQuery 3.5.1 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Compressed Scripts -->
-    <script src="{{ url_for('static', filename='js/slides.min.js') }}" type="text/javascript"></script>
+    <script src="js/slides.min.js?511351" type="text/javascript"></script>
 
 </body>
 </html>
