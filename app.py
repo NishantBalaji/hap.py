@@ -38,10 +38,10 @@ def results():
     emotion = response.json()[0]['faceAttributes']['emotion']
 
 
-
+    # Yelp API
 
     headers = {
-        'authorization': YELP_API
+        'authorization': f'Bearer {YELP_API}'
     }
 
     params = {
