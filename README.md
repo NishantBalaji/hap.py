@@ -1,5 +1,5 @@
 # hap.py
-Too lazy to find some funny jokes? hap.py is here to help! hap.py is a one stop facial recognition software that will send you the greatest (and most appropriate) jokes based on your mood and age. On top of that, jokes will be sent straight to your phone, allowing you to be connected with the top memes at your convenience. 
+Too lazy to find some funny jokes? hap.py is here to help! hap.py is a one stop facial recognition software that will send you the greatest (and most appropriate) jokes based on your mood and age. On top of that, jokes will be sent straight to your phone, allowing you to be connected with the top jokes at your convenience. 
 
 ![Index](https://github.com/happy-peddiehacks/hap.py/blob/master/static/assets/img/Screenshots/index.png)
 ![Results](https://github.com/happy-peddiehacks/hap.py/blob/master/static/assets/img/Screenshots/results.png)
