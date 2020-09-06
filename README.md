@@ -32,8 +32,18 @@ This application utilises the [Microsoft Face API](https://azure.microsoft.com/e
 ## What we learned
 We learned how to work with multiple APIS at the same time and how to create a full stack web app. We also learned and developed an algorith to relate happiness and jokes as well as the basics of Flask webpage development.  
 
-
 ## What's next for hap.py
 Now that we've developed the basic framework for hap.py, we have a lot in store for the future! First, we plan on cleaning up the UI/UX of the web app to provide a more aesthetic interface for users. Once that is done, we will deploy hap.py to the internet using Heroku, so that it will be accessible to everyone!
 
-
+## Installation
+1. Download the code
+2. Create a `.env` file in the home directory
+3. Put the following in the `.env` file, and replace items in brackets with your own information
+```
+FACE_KEY={YOUR_FACE_KEY}
+TWILIO_SID={YOUR_TWILIO_SID}
+TWILIO_KEY={YOUR_TWILIO_KEY}
+TWILIO_NUMBER={YOUR_TWILIO_NUMBER}
+JOKES_API={JOKES_API}
+```
+4. Run the code with `flask run` and view it in the browser!
