@@ -3,4 +3,3 @@ flask-heroku
 gunicorn
 twilio
 face
-joke
