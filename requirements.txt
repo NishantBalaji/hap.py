@@ -1,5 +1,4 @@
 flask
-dotenv
 twilio
 face
 joke
