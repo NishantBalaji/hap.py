@@ -1,4 +1,4 @@
-# hap.py
+# [hap.py](https://hap-py.herokuapp.com/)
 Too lazy to find some funny jokes? hap.py is here to help! hap.py is a one stop facial recognition software that will send you the greatest (and most appropriate) jokes based on your mood and age. On top of that, jokes will be sent straight to your phone, allowing you to be connected with the top jokes at your convenience. 
 
 ![Index](https://github.com/happy-peddiehacks/hap.py/blob/master/static/assets/img/Screenshots/index.png)
@@ -47,3 +47,6 @@ TWILIO_NUMBER={YOUR_TWILIO_NUMBER}
 JOKES_API={JOKES_API}
 ```
 4. Run the code with `flask run` and view it in the browser!
+
+## Website
+Click [here](https://hap-py.herokuapp.com/) to visit the app on Heroku!
