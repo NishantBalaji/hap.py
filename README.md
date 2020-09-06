@@ -49,4 +49,4 @@ JOKES_API={JOKES_API}
 4. Run the code with `flask run` and view it in the browser!
 
 ## Website
-Click [here](https://hap-py.herokuapp.com/) to visit the app on Heroku!
+Click [here](https://hap-py.herokuapp.com/) to try the app yourself!
